@@ -1,0 +1,34 @@
+<!-- ? 의문 : ${}를 제외한다면 어떻게 될까?  -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    function elem(tagName) {
+      if(typeof(tagName) === 'string') {
+        return '<' + tagName +'></' + tagName + '>'; 
+        //1. 그냥 <></>라면 <>에서 작성법 에러가 나서 작동하지 않는다.
+        //2. 위처럼 따로 나눈다면 아래의 innerHTML이 작동하지 않는다. 
+      }
+    }
+    const root = document.getElementById('root');
+    root.innerHTML = `
+    elem('header')
+    elem('main')
+    elem('footer')
+    `;
+    const main = document.querySelector('#root>main');
+    main.innerHTML = `
+    elem('div')
+    `;
+
+  </script>
+</body>
+</html>

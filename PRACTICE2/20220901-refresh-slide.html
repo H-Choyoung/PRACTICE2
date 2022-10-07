@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>슬라이드를 간단하게 만들어보자..근데졸리다</title>
+</head>
+<body>
+  <!-- <div id="root">
+    <div class="slide">
+      <div class="image-box">
+        <div id="main_image"></div>
+      </div>
+      <div class="toolbar">
+        <div class="nav">
+          <div id="prev"></div>
+          <div id="next"></div>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <script>
+
+    const root = document.getElementById('root');
+
+    function elementMaker(parent, element, elementNum, styleprops){
+      for(let i = 0; i < elementNum; i++){
+        let elem = document.createElement(element);
+        element.style[i] = styleprops[i];
+        //js26 참고해서 고민좀해보자..
+      }
+      parent.appendChild(element);
+    }
+
+    let styleObj = {
+      width: '50vw',
+      height: '50vh',
+      backgroundColor: 'black'
+    }
+
+    elementMaker(root, 'div', 2, styleObj);
+
+  </script>
+</body>
+</html>

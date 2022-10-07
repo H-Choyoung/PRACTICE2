@@ -1,0 +1,59 @@
+<!-- ? JAVA..script 직접 메서드 만들기 -->
+
+<!-- JS는 너무나 유연한 멀티 패러다임 언어이다.  -->
+<!-- 스케일이 커질수록 생성자 함수에 대한 의존도가 ↑ -->
+<!-- 예제에서 getter, setter, '직접 만드는 메서드' 확인하기  -->
+
+<!-- * constructor with method -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script>
+    class ElementMaker {
+      constructor(tagName, width, bgCol, content='') {
+        this.tagName = tagName;
+        this.width = width;
+        this.bgCol = bgCol;
+        this.content = content;
+      }
+
+      //set은 인스턴스가 '곧' 될 tagName의 셋팅을 하는 생성자 함수 전용 키워드 
+      set tagName(value) {
+        if(typeof value === 'string'){
+          return this._tagName = value;
+        }
+      }
+
+      //삼항연산자(ternary operator) 방식으로 처리해보기
+      set width(value) {
+        return this._width = Number.isInteger(value) ? value : console.error('need integer');
+        //Number.isInteger() 메서드는 주어진 값이 정수인지 판별함
+      }
+
+      //get은 '결정이 완료 된' 값을 가져와 가공한다. 위의 constructor 필드의 height값은 정의되어 있지 않은 것 & 콘솔에 키(key)로 잡혀있는 것을 확인할 것
+      get height(){
+        return this._width / 2; //setter에서 결정된 _width 키(key)값을 가공하여 height 키로 구성
+      }
+
+      makeElement() {
+        //직접 인스턴스를 양산하는 '메서드'. 객체의 키로 존재하기 때문에 함수가 아닌 메서드로 부른다. 
+        return `<${this._tagName} style='width:${this._width}px; height:${this._height}px; background-color:${this._bgCol}'> ${this._content} </${this._tagName}>`;
+      }
+    }
+
+    const root = document.getElementById('root');
+    const fromConstructorFunc = new ElementMaker('div', 200, 'salmon', 'hello');
+    //생성자 함수에서 인스턴스를 만들어내는 new 키워드를 통해 객체 하나를 찍어내었다. 
+    console.dir(fromConstructorFunc);
+
+  </script>
+</body>
+</html>

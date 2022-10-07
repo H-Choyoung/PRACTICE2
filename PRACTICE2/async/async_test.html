@@ -1,0 +1,126 @@
+<!-- 콜백 또는 프로미스로 처리  -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    #root {
+      width: 100vw;
+      height: 100vh;
+      background: #333;
+    }
+
+    #box {
+      width: 100px;
+      height: 100px;
+      background-color: #ccc;
+    }
+
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  </style>
+
+</head>
+
+<body>
+
+
+  <div id="root" class="flex-center">
+    <div id="box">
+
+    </div>
+  </div>
+  <script>
+    const dom = {
+      root: document.getElementById('root'),
+      box: document.getElementById('box'),
+    }
+    const {
+      box
+    } = dom; //구조분해할당
+    box.style.position = "absolute";
+    box.style.top = "0px";
+    box.style.left = "0px";
+
+    const posValue = {
+      top: 0,
+      left: 0,
+    }
+
+    let state = true;
+    // box.addEventListener('click', () => {
+
+    //     let moveTop = setInterval(() => {
+    //       console.log('interval start')
+    //       if (state === true) {
+    //         posValue.top++;
+    //         box.style.top = posValue.top + "px";
+    //         if (posValue.top === 500) {
+    //           clearInterval(moveTop);
+    //           state = false;
+    //           let moverignt = setInterval(() => {
+    //             posValue.left++;
+    //             box.style.left = posValue.left + "px";
+    //             if(posValue.left === 500){
+    //               clearInterval(moverignt);
+    //               }
+    //             }, 8);
+    //           }
+    //         } else {
+    //           state = true;}
+    //   }, 8);
+    // });
+    //작동은 되는데 다시 클릭하면 아래로 내려가는걸 해결하려면?
+
+
+    //promise로 해결
+    box.addEventListener('click', () => {
+      const promise = new Promise((resolve, reject) => {
+        let moveTop = setInterval(() => {
+          console.log('interval start');
+          if (state === true) {
+            posValue.top++;
+            box.style.top = posValue.top + 'px';
+            if (posValue.top === 500) {
+              clearInterval(moveTop);
+              state = false;
+            }
+          }
+        }, 8);
+        resolve();
+      });
+      promise.then(() => {
+        let moverignt = setInterval(() => {
+          if (posValue.top === 500) {
+            posValue.left++;
+            box.style.left = posValue.left + "px";
+            if (posValue.left === 500) {
+              clearInterval(moverignt);
+            }
+          }
+        }, 8);
+      });
+    });
+    //마지막에 다시 누르면 다시 옆으로 간다.. 
+
+    //callback으로 해결..
+    
+
+  </script>
+</body>
+
+</html>

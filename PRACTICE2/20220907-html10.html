@@ -1,0 +1,40 @@
+<!-- ? 내가 알고 있던 배열은 배열이 아니었다?
+  정적인 페이지를 작성할때 곧잘, DOM API 지원 메서드인 querySelectorAll()이나, getElementsByClassName()과 같은 여러개의 요소를 선택하는 메서드를 활용하면, length를 갖춘 데이터 식별을 할 수 있다. 
+  그러나 lenght, 길이값을 가진 것을 모두 배열이라고 할 수는 없다. HTMLCollection과 NodeList는 메서드에 의해 수집된 산출물에 가깝다. 
+  1. HTMLCollection과 NodeList는 배열의 특성인 index와 length를 가지고 있지만 '배열'은 아니다.
+  2. 혼선이 올만큼 배열과 유사하기 때문에 정확한 명칭은 "유사 배열 객체(array-like object)"로 분류 된다.
+  3. 배열판정을 받는지 확인하고자 한다면, Array라는 내장객체(built-in object)의 지원 메서드중 isArray()로 확인 할 수 있다.
+  4. 배열로 판정을 받을 수 있게끔 조치하는 방법이 여러가지 있지만, 자바스크립트는 이것을 간단한 메서드로 지원한다.
+  5. 배열로 데이터를 처리하면 자바스크립트가 지원하는 모든 배열 메서드(함수)를 사용 할 수 있다. -->
+<!--* ...연산자(점세개), 전개연산자, spread operator -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="root">
+    <ul>
+      <li>items-1</li>
+      <li>items-2</li>
+      <li>items-3</li>
+      <li>items-4</li>
+      <li>items-5</li>
+    </ul>
+  </div>
+<script>
+  const root = document.getElementById('root');
+  const notArrayLi = document.querySelectorAll('ul > li');
+  console.log(Array.isArray(notArrayLi)); //false
+
+  const liFron = Array.from(document.querySelectorAll('ul > li')); //유사배열로 반환하는 함수
+  console.log(Array.isArray(liFron)); //true
+
+  const liSpread = [...document.querySelectorAll('ul > li')];
+  console.log(Array.isArray(liSpread)); //true
+</script>
+</body>
+</html>
