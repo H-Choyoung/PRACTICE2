@@ -1,0 +1,21 @@
+$var : #564;
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  border: 1px solid #947;
+
+  & > ul {
+    list-style-type: none;
+
+    & > li {
+      text-align: center;
+    }
+
+    @for $index from 1 through 10 {
+      &:nth-child(#{$index}){
+        background-color: $var;
+      }
+    } 
+  }
+}
